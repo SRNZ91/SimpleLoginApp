@@ -53,7 +53,10 @@ app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   });
 
 app.get('/logout', function(req, res) {
-    req.logout();
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+      });
     res.redirect('/login');
   });
 
